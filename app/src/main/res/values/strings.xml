@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">App Meteo</string>
+    <string name="welcome_string">Benvenuto</string>
+    <string name="use_location_string">Usa il GPS</string>
+    <string name="api_key">AIzaSyBzHXpr7h6em6zk3OMswOAd2oADEVh4rc4</string>
+    <string name="owm_api_key">054844e8c5660ac8b33e5b83ba3bb350</string>
+    <string name="search_city">Cerca una città</string>
+    <string name="title_activity_show_forecast">ShowForecastActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_forecast">ForecastActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="single_day_tab">Giorno singolo</string>
+    <string name="five_day_tab">5 giorni</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
