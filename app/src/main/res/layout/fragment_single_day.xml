@@ -242,7 +242,7 @@
         android:id="@+id/windUnitsTextView"
         android:layout_width="38dp"
         android:layout_height="22dp"
-        android:text="km/h"
+        android:text="@string/metric_wind_unit"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/windDirectionImageView"
         app:layout_constraintStart_toStartOf="@+id/windDirectionImageView"

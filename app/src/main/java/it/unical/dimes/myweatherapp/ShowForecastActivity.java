@@ -43,22 +43,18 @@ public class ShowForecastActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(mViewPager);
-
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        mTabLayout.setupWithViewPager(mViewPager);
 
 
         String forecastString = getIntent().getStringExtra(Intent.EXTRA_RETURN_RESULT);
         try {
             ForecastObject mainForecastObject = new ForecastObject(new JSONObject(forecastString));
+            mViewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(mViewPager, mainForecastObject, null);
+            // TODO: rimpiazza il Null con l'oggetto forecast vero, poi
 
+            mTabLayout = (TabLayout) findViewById(R.id.tabs);
+            mTabLayout.setupWithViewPager(mViewPager);
 
-
-
-
-            // TODO deserializza e parserizza tutto
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -68,10 +64,10 @@ public class ShowForecastActivity extends AppCompatActivity {
 
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, ForecastObject singleDayForecast, ForecastObject fiveDayForecast) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SingleDayFragment(), "SINGLE");
-        adapter.addFragment(new FiveDayFragment(), "FIVE");
+        adapter.addFragment(new SingleDayFragment(singleDayForecast), "SINGLE");
+        adapter.addFragment(new FiveDayFragment(fiveDayForecast), "FIVE");
         viewPager.setAdapter(adapter);
     }
 

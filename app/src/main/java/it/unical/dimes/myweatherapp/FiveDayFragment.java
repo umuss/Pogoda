@@ -8,10 +8,17 @@ import android.view.ViewGroup;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONObject;
+
+import it.unical.dimes.myweatherapp.model.ForecastObject;
+
 
 public class FiveDayFragment extends Fragment {
-    public FiveDayFragment() {
-        // Required empty public constructor
+
+    private ForecastObject mFiveDayForecast;
+
+    public FiveDayFragment(ForecastObject fiveDayForecast) {
+         mFiveDayForecast = fiveDayForecast;
     }
 
 

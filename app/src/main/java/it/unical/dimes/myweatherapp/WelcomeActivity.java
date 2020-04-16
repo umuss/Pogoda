@@ -259,7 +259,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Toast.makeText(WelcomeActivity.this, "<Nome: " + place.getName() + ">, <LatLng: " + place.getLatLng() + ">", Toast.LENGTH_LONG).show();
                 new FetchWeatherTask().execute(place.getLatLng().latitude, place.getLatLng().longitude);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error.
+                // TODO: Handle the error. (si?)
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {

@@ -21,9 +21,9 @@
     <string name="five_day_tab">5 giorni</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forecast_string_cloudy">Nuvoloso</string>
-    <string name="string_pressure_units_mbar">mbar</string>
+    <string name="string_pressure_units_mbar">hPa</string>
     <string name="string_wind_header">Vento</string>
+    <string name="metric_wind_unit">km/h</string>
 </resources>
