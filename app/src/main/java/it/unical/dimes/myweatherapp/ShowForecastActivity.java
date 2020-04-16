@@ -53,6 +53,12 @@ public class ShowForecastActivity extends AppCompatActivity {
         String forecastString = getIntent().getStringExtra(Intent.EXTRA_RETURN_RESULT);
         try {
             ForecastObject mainForecastObject = new ForecastObject(new JSONObject(forecastString));
+
+
+
+
+
+            // TODO deserializza e parserizza tutto
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -60,7 +66,6 @@ public class ShowForecastActivity extends AppCompatActivity {
 
 
 
-        // TODO deserializza e parserizza tutto
     }
 
     private void setupViewPager(ViewPager viewPager) {
