@@ -1,8 +1,17 @@
 package it.unical.dimes.myweatherapp.model;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Instant;
 import java.util.HashMap;
 
@@ -19,6 +28,8 @@ public class ForecastObject {
     private Instant sunriseTime;
     private Instant sunsetTime;
     private String locationName;
+    private Bitmap forecastIcon;
+
 
     public String getMainForecast() {
         return mainForecast;
@@ -46,6 +57,10 @@ public class ForecastObject {
 
     public Double getPressure() {
         return pressure;
+    }
+
+    public Bitmap getForecastIcon() {
+        return forecastIcon;
     }
 
     public void setPressure(Double pressure) {
@@ -143,10 +158,42 @@ public class ForecastObject {
 
             cloudsPercentage = jsonForecast.getJSONObject("clouds").getDouble("all");
             takenOn = Instant.ofEpochSecond(jsonForecast.getLong("dt"));
+            Log.v("FObject", String.valueOf(jsonForecast.getJSONObject("sys").getLong("sunrise")));
             sunriseTime = Instant.ofEpochSecond(jsonForecast.getJSONObject("sys").getLong("sunrise"));
             sunsetTime = Instant.ofEpochSecond(jsonForecast.getJSONObject("sys").getLong("sunset"));
             locationName = jsonForecast.getString("name");
 
+
+            class FetchIconTask extends AsyncTask<String, Void, Bitmap> {
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                }
+
+                @Override
+                protected Bitmap doInBackground(String... params) {
+                    if (params.length == 0) {
+                        return null;
+                    }
+                    try {
+                        URL url = new URL("https://openweathermap.org/img/wn/"+ params[0] + "@2x.png");
+                        return BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap result) {
+                    if (result != null) {
+                        forecastIcon = result;
+                        Log.v("AsyncTask mia" , forecastIcon.toString());
+                    }
+                }
+            }
+            new FetchIconTask().execute(weatherObject.getString("icon"));
 
         } catch (JSONException e) {
             e.printStackTrace();

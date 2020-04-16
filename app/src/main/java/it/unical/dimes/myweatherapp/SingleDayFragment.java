@@ -1,5 +1,6 @@
 package it.unical.dimes.myweatherapp;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class SingleDayFragment extends Fragment {
     private ImageView mWindDirectionImageView;
     private ImageView mForecastImageView;
     private ForecastObject mSingleDayForecast;
+
 
 
     public SingleDayFragment(ForecastObject singleDayForecast) {
@@ -107,7 +109,7 @@ public class SingleDayFragment extends Fragment {
         mHumidityTextView.setText(Math.round(mSingleDayForecast.getHumidity()) + "%");
         mCloudsPercentageTextView.setText(Math.round(mSingleDayForecast.getCloudsPercentage()) + "%");
         mWindValueTextView.setText(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_SPEED).toString());
-
+        mForecastImageView.setImageBitmap(mSingleDayForecast.getForecastIcon());
     }
 
 
