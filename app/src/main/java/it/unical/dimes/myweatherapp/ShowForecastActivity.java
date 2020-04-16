@@ -10,8 +10,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
@@ -56,6 +58,8 @@ public class ShowForecastActivity extends AppCompatActivity {
         }
 
 
+
+
         // TODO deserializza e parserizza tutto
     }
 
@@ -65,6 +69,7 @@ public class ShowForecastActivity extends AppCompatActivity {
         adapter.addFragment(new FiveDayFragment(), "FIVE");
         viewPager.setAdapter(adapter);
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
