@@ -50,7 +50,7 @@ public class ShowForecastActivity extends AppCompatActivity {
             ForecastObject mainForecastObject = new ForecastObject(new JSONObject(forecastString));
             mViewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(mViewPager, mainForecastObject, null);
-            // TODO: rimpiazza il Null con l'oggetto forecast vero, poi
+            // TODO: rimpiazza il null con l'oggetto forecast vero, poi
 
             mTabLayout = (TabLayout) findViewById(R.id.tabs);
             mTabLayout.setupWithViewPager(mViewPager);

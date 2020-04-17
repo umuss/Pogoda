@@ -144,7 +144,6 @@
         android:layout_width="89dp"
         android:layout_height="92dp"
         android:layout_marginTop="112dp"
-        android:src="@drawable/art_clouds"
         app:layout_constraintEnd_toStartOf="@+id/horizontal_middle"
         app:layout_constraintHorizontal_bias="0.404"
         app:layout_constraintStart_toStartOf="parent"

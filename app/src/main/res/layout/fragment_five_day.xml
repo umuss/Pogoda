@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".SingleDayFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Metti una lista di giorni cliccabili -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -48,7 +48,6 @@ public class SingleDayFragment extends Fragment {
     private ForecastObject mSingleDayForecast;
 
 
-
     public SingleDayFragment(ForecastObject singleDayForecast) {
         mSingleDayForecast = singleDayForecast;
     }
@@ -60,7 +59,7 @@ public class SingleDayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
     }
 
     @Override
@@ -91,11 +90,13 @@ public class SingleDayFragment extends Fragment {
             }
         });
 
+        // TODO: tieni in conto il fatto che alcuni di questi valori potrebbero essere nulli
+
         mCityTextView.setText(mSingleDayForecast.getLocationName());
         mForecastTextView.setText(mSingleDayForecast.getMainForecast());
         mDateTextView.setText(new SimpleDateFormat("EEEE, dd MMMM", Locale.ITALY).format(new Date()));
-        mMaxTempTextView.setText(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MAX).toString());
-        mMinTempTextView.setText(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN).toString());
+        mMaxTempTextView.setText(Math.round(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MAX)) + "°");
+        mMinTempTextView.setText(Math.round(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN)) + "°");
         mPressureValueTextView.setText(mSingleDayForecast.getPressure().toString());
         Pattern timePattern = Pattern.compile(".+T(\\d\\d:\\d\\d).+Z");
         Matcher sunriseMatcher = timePattern.matcher(mSingleDayForecast.getSunriseTime().toString());
@@ -109,7 +110,9 @@ public class SingleDayFragment extends Fragment {
         mHumidityTextView.setText(Math.round(mSingleDayForecast.getHumidity()) + "%");
         mCloudsPercentageTextView.setText(Math.round(mSingleDayForecast.getCloudsPercentage()) + "%");
         mWindValueTextView.setText(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_SPEED).toString());
-        mForecastImageView.setImageBitmap(mSingleDayForecast.getForecastIcon());
+        mForecastImageView.setBackgroundResource(
+                getResources().getIdentifier(
+                        "i_" + mSingleDayForecast.getForecastIconID(), "drawable", getActivity().getPackageName()));
     }
 
 

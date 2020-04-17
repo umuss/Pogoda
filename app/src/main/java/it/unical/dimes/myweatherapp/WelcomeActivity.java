@@ -96,7 +96,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Uri builtUri = Uri.parse(OWM_SINGLE_URL).buildUpon()
                 .appendQueryParameter("lat", String.valueOf(latitude))
                 .appendQueryParameter("lon", String.valueOf(longitude))
-                // TODO qui poi parametrizza perchè potrei voler cambiare le impostazioni e vedere in fahrenheit
+                // TODO: qui poi parametrizza perchè potrei voler cambiare le impostazioni e vedere in fahrenheit
                 .appendQueryParameter("units", "metric")
                 .appendQueryParameter("lang", "it")
                 .appendQueryParameter("appid", getString(R.string.owm_api_key))
@@ -259,7 +259,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Toast.makeText(WelcomeActivity.this, "<Nome: " + place.getName() + ">, <LatLng: " + place.getLatLng() + ">", Toast.LENGTH_LONG).show();
                 new FetchWeatherTask().execute(place.getLatLng().latitude, place.getLatLng().longitude);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                // TODO: Handle the error. (si?)
+                // TODO: Handle the error. (che vuol dire?)
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {

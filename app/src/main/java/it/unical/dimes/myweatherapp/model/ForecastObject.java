@@ -29,7 +29,11 @@ public class ForecastObject {
     private Instant sunsetTime;
     private String locationName;
     private Bitmap forecastIcon;
+    private String forecastIconID;
 
+    public String getForecastIconID() {
+        return forecastIconID;
+    }
 
     public String getMainForecast() {
         return mainForecast;
@@ -193,6 +197,7 @@ public class ForecastObject {
                     }
                 }
             }
+            forecastIconID = weatherObject.getString("icon");
             new FetchIconTask().execute(weatherObject.getString("icon"));
 
         } catch (JSONException e) {
