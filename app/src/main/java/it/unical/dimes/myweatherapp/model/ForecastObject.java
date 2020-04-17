@@ -28,8 +28,9 @@ public class ForecastObject {
     private Instant sunriseTime;
     private Instant sunsetTime;
     private String locationName;
-    private Bitmap forecastIcon;
     private String forecastIconID;
+    private Double latitude;
+    private Double longitude;
 
     public String getForecastIconID() {
         return forecastIconID;
@@ -61,10 +62,6 @@ public class ForecastObject {
 
     public Double getPressure() {
         return pressure;
-    }
-
-    public Bitmap getForecastIcon() {
-        return forecastIcon;
     }
 
     public void setPressure(Double pressure) {
@@ -127,6 +124,7 @@ public class ForecastObject {
         this.locationName = locationName;
     }
 
+
     public static final String TEMP_NOW = "temp_now";
     public static final String TEMP_PERCEIVED = "temp_perceived";
     public static final String TEMP_MIN = "temp_min";
@@ -134,12 +132,21 @@ public class ForecastObject {
     public static final String WIND_SPEED = "wind_speed";
     public static final String WIND_DEGREES = "wind_degrees";
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
 
     public ForecastObject(JSONObject jsonForecast) {
         try {
             JSONObject weatherObject = (JSONObject) jsonForecast.getJSONArray("weather").get(0);
             mainForecast = weatherObject.getString("main");
             description = weatherObject.getString("description");
+            latitude = jsonForecast.getJSONObject("coords").getDouble("latitude");
+            longitude = jsonForecast.getJSONObject("coords").getDouble("longitude");
 
             JSONObject tempsObject = jsonForecast.getJSONObject("main");
             Double temp = tempsObject.getDouble("temp");
@@ -160,6 +167,7 @@ public class ForecastObject {
             windValues.put(WIND_SPEED, windSpeed);
             windValues.put(WIND_DEGREES, windDegrees);
 
+
             cloudsPercentage = jsonForecast.getJSONObject("clouds").getDouble("all");
             takenOn = Instant.ofEpochSecond(jsonForecast.getLong("dt"));
             Log.v("FObject", String.valueOf(jsonForecast.getJSONObject("sys").getLong("sunrise")));
@@ -167,38 +175,8 @@ public class ForecastObject {
             sunsetTime = Instant.ofEpochSecond(jsonForecast.getJSONObject("sys").getLong("sunset"));
             locationName = jsonForecast.getString("name");
 
-
-            class FetchIconTask extends AsyncTask<String, Void, Bitmap> {
-
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                }
-
-                @Override
-                protected Bitmap doInBackground(String... params) {
-                    if (params.length == 0) {
-                        return null;
-                    }
-                    try {
-                        URL url = new URL("https://openweathermap.org/img/wn/"+ params[0] + "@2x.png");
-                        return BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(Bitmap result) {
-                    if (result != null) {
-                        forecastIcon = result;
-                        Log.v("AsyncTask mia" , forecastIcon.toString());
-                    }
-                }
-            }
             forecastIconID = weatherObject.getString("icon");
-            new FetchIconTask().execute(weatherObject.getString("icon"));
+
 
         } catch (JSONException e) {
             e.printStackTrace();

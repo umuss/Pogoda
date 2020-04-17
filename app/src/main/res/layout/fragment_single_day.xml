@@ -143,9 +143,9 @@
         android:id="@+id/forecastImageView"
         android:layout_width="89dp"
         android:layout_height="92dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintEnd_toStartOf="@+id/horizontal_middle"
-        app:layout_constraintHorizontal_bias="0.404"
+        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,6 +193,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/forecast_string_cloudy"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/forecastImageView"
         app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintStart_toStartOf="@+id/forecastImageView"
@@ -224,8 +225,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="76dp"
         app:layout_constraintStart_toEndOf="@+id/windValueTextView"
-        app:layout_constraintTop_toBottomOf="@+id/sunsetTextView"
-        app:srcCompat="@drawable/wind_southwest" />
+        app:layout_constraintTop_toBottomOf="@+id/sunsetTextView" />
 
     <TextView
         android:id="@+id/sunriseTextView"

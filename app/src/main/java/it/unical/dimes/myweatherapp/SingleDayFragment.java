@@ -1,9 +1,12 @@
 package it.unical.dimes.myweatherapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -63,6 +67,27 @@ public class SingleDayFragment extends Fragment {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_in_map:
+
+                Uri geoLocation = Uri.parse("geo:" + mSingleDayForecast.getLatitude() + "," + mSingleDayForecast.getLongitude());
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(geoLocation);
+
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Log.d(TAG, "Couldn't call " + geoLocation.toString()
+                            + ", no receiving apps installed!");
+                }
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View tabbedView = getView();
@@ -86,7 +111,27 @@ public class SingleDayFragment extends Fragment {
         FloatingActionButton shareFAB = tabbedView.findViewById(R.id.share_fab);
         shareFAB.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getView().getContext(), "Qui faccio partire il menu share", Toast.LENGTH_LONG).show();
+
+
+                // 01d(1), 02d(3), 03d(5), 04d(5), 09d(7), 10d(6), 11d(9), 13d(10)
+
+                // TODO: anche qui va parametrizzata la stringa perchè non sai se hai fahrenheit o celsius
+                StringBuilder textToShare = new StringBuilder();
+                textToShare.append("Oggi a ")
+                        .append(mSingleDayForecast.getLocationName())
+                        .append(" porta ").append("\\xF0\\x9F\\x98\\x82 - ")
+                        .append(" ci sono ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN))
+                        .append("°C di minima e ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MAX))
+                        .append("°C di massima. ")
+                        .append("\nVento di ").append(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_SPEED))
+                        .append(" km/h.");
+
+
+                ShareCompat.IntentBuilder.
+                        from(getActivity()).
+                        setType("text/plain").
+                        setChooserTitle("Condividi le previsioni del tempo").
+                        setText(textToShare.toString()).startChooser();
             }
         });
 
@@ -113,6 +158,49 @@ public class SingleDayFragment extends Fragment {
         mForecastImageView.setBackgroundResource(
                 getResources().getIdentifier(
                         "i_" + mSingleDayForecast.getForecastIconID(), "drawable", getActivity().getPackageName()));
+
+
+        // N: 0-45
+        // NE: 45-90
+        // E: 90-135
+        // SE: 135-180
+        // S: 180-225
+        // SW: 225-270
+        // W: 270-315
+        // NW: 315-360
+
+        Long vRounded = Math.round(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_DEGREES));
+        String windDirectionIconID = "wind_";
+        if (vRounded >= 0 && vRounded <= 45) {
+            windDirectionIconID += "north";
+        }
+        if (vRounded >= 45 && vRounded <= 90) {
+            windDirectionIconID += "northeast";
+        }
+        if (vRounded >= 90 && vRounded <= 135) {
+            windDirectionIconID += "east";
+        }
+        if (vRounded >= 135 && vRounded <= 180) {
+            windDirectionIconID += "southeast";
+        }
+        if (vRounded >= 180 && vRounded <= 225) {
+            windDirectionIconID += "south";
+        }
+        if (vRounded >= 225 && vRounded <= 270) {
+            windDirectionIconID += "southwest";
+        }
+        if (vRounded >= 270 && vRounded <= 315) {
+            windDirectionIconID += "west";
+        }
+        if (vRounded >= 315 && vRounded <= 360) {
+            windDirectionIconID += "northwest";
+        }
+
+
+        mWindDirectionImageView.setBackgroundResource(
+                getResources().getIdentifier(
+                        windDirectionIconID, "drawable", getActivity().getPackageName()));
+
     }
 
 

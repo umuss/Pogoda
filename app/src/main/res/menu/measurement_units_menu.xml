@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ShowForecastActivity">
+    <item
+        android:id="@+id/action_switch_to_metric"
+        android:orderInCategory="1"
+        android:title="@string/usa_sistema_metrico"
+         />
+    <item
+        android:id="@+id/action_switch_to_imperial"
+        android:orderInCategory="2"
+        android:title="@string/usa_sistema_imperiale"
+         />
+    <item
+        android:id="@+id/action_show_in_map"
+        android:orderInCategory="3"
+        android:title="@string/mostra_luogo_su_mappe"
+         />
+
+</menu>
