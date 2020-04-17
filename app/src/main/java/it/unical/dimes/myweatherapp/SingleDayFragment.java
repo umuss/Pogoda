@@ -140,6 +140,8 @@ public class SingleDayFragment extends Fragment {
         mCityTextView.setText(mSingleDayForecast.getLocationName());
         mForecastTextView.setText(mSingleDayForecast.getMainForecast());
         mDateTextView.setText(new SimpleDateFormat("EEEE, dd MMMM", Locale.ITALY).format(new Date()));
+
+        Log.d(TAG, mSingleDayForecast.getTempValues().toString());
         mMaxTempTextView.setText(Math.round(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MAX)) + "°");
         mMinTempTextView.setText(Math.round(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN)) + "°");
         mPressureValueTextView.setText(mSingleDayForecast.getPressure().toString());
@@ -169,38 +171,40 @@ public class SingleDayFragment extends Fragment {
         // W: 270-315
         // NW: 315-360
 
-        Long vRounded = Math.round(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_DEGREES));
-        String windDirectionIconID = "wind_";
-        if (vRounded >= 0 && vRounded <= 45) {
-            windDirectionIconID += "north";
-        }
-        if (vRounded >= 45 && vRounded <= 90) {
-            windDirectionIconID += "northeast";
-        }
-        if (vRounded >= 90 && vRounded <= 135) {
-            windDirectionIconID += "east";
-        }
-        if (vRounded >= 135 && vRounded <= 180) {
-            windDirectionIconID += "southeast";
-        }
-        if (vRounded >= 180 && vRounded <= 225) {
-            windDirectionIconID += "south";
-        }
-        if (vRounded >= 225 && vRounded <= 270) {
-            windDirectionIconID += "southwest";
-        }
-        if (vRounded >= 270 && vRounded <= 315) {
-            windDirectionIconID += "west";
-        }
-        if (vRounded >= 315 && vRounded <= 360) {
-            windDirectionIconID += "northwest";
-        }
+        if (mSingleDayForecast.getWindValues().get(ForecastObject.WIND_DEGREES) != null) {
 
+            Long vRounded = Math.round(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_DEGREES));
+            String windDirectionIconID = "wind_";
+            if (vRounded >= 0 && vRounded <= 45) {
+                windDirectionIconID += "north";
+            }
+            if (vRounded >= 45 && vRounded <= 90) {
+                windDirectionIconID += "northeast";
+            }
+            if (vRounded >= 90 && vRounded <= 135) {
+                windDirectionIconID += "east";
+            }
+            if (vRounded >= 135 && vRounded <= 180) {
+                windDirectionIconID += "southeast";
+            }
+            if (vRounded >= 180 && vRounded <= 225) {
+                windDirectionIconID += "south";
+            }
+            if (vRounded >= 225 && vRounded <= 270) {
+                windDirectionIconID += "southwest";
+            }
+            if (vRounded >= 270 && vRounded <= 315) {
+                windDirectionIconID += "west";
+            }
+            if (vRounded >= 315 && vRounded <= 360) {
+                windDirectionIconID += "northwest";
+            }
 
-        mWindDirectionImageView.setBackgroundResource(
-                getResources().getIdentifier(
-                        windDirectionIconID, "drawable", getActivity().getPackageName()));
+            mWindDirectionImageView.setBackgroundResource(
+                    getResources().getIdentifier(
+                            windDirectionIconID, "drawable", getActivity().getPackageName()));
 
+        }
     }
 
 

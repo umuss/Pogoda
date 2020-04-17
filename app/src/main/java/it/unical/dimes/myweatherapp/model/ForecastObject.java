@@ -142,18 +142,19 @@ public class ForecastObject {
 
     public ForecastObject(JSONObject jsonForecast) {
         try {
+            tempValues = new HashMap<>();
+            windValues = new HashMap<>();
             JSONObject weatherObject = (JSONObject) jsonForecast.getJSONArray("weather").get(0);
             mainForecast = weatherObject.getString("main");
             description = weatherObject.getString("description");
-            latitude = jsonForecast.getJSONObject("coords").getDouble("latitude");
-            longitude = jsonForecast.getJSONObject("coords").getDouble("longitude");
+            latitude = jsonForecast.getJSONObject("coord").getDouble("lat");
+            longitude = jsonForecast.getJSONObject("coord").getDouble("lon");
 
             JSONObject tempsObject = jsonForecast.getJSONObject("main");
             Double temp = tempsObject.getDouble("temp");
             Double perceivedTemp = tempsObject.getDouble("feels_like");
             Double minTemp = tempsObject.getDouble("temp_min");
             Double maxTemp = tempsObject.getDouble("temp_max");
-            tempValues = new HashMap<>();
             tempValues.put(TEMP_NOW, temp);
             tempValues.put(TEMP_PERCEIVED, perceivedTemp);
             tempValues.put(TEMP_MIN, minTemp);
@@ -161,11 +162,8 @@ public class ForecastObject {
             pressure = tempsObject.getDouble("pressure");
             humidity = tempsObject.getDouble("humidity");
 
-            windValues = new HashMap<>();
             Double windSpeed = jsonForecast.getJSONObject("wind").getDouble("speed");
-            Double windDegrees = jsonForecast.getJSONObject("wind").getDouble("deg");
             windValues.put(WIND_SPEED, windSpeed);
-            windValues.put(WIND_DEGREES, windDegrees);
 
 
             cloudsPercentage = jsonForecast.getJSONObject("clouds").getDouble("all");
@@ -177,6 +175,8 @@ public class ForecastObject {
 
             forecastIconID = weatherObject.getString("icon");
 
+            Double windDegrees = jsonForecast.getJSONObject("wind").getDouble("deg");
+            windValues.put(WIND_DEGREES, windDegrees);
 
         } catch (JSONException e) {
             e.printStackTrace();
