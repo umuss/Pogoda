@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,7 @@ import it.unical.dimes.myweatherapp.model.ForecastObject;
 
 public class SingleDayFragment extends Fragment {
 
-    private static final String TAG = "SingleDayFragment";
+    public static final String TAG = "SingleDayFragment";
     private TextView mCityTextView;
     private TextView mDateTextView;
     private TextView mForecastTextView;
@@ -51,6 +53,9 @@ public class SingleDayFragment extends Fragment {
     private ImageView mForecastImageView;
     private ForecastObject mSingleDayForecast;
 
+    public ForecastObject getmSingleDayForecast() {
+        return mSingleDayForecast;
+    }
 
     public SingleDayFragment(ForecastObject singleDayForecast) {
         mSingleDayForecast = singleDayForecast;
@@ -64,27 +69,6 @@ public class SingleDayFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_show_in_map:
-
-                Uri geoLocation = Uri.parse("geo:" + mSingleDayForecast.getLatitude() + "," + mSingleDayForecast.getLongitude());
-
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(geoLocation);
-
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Log.d(TAG, "Couldn't call " + geoLocation.toString()
-                            + ", no receiving apps installed!");
-                }
-                break;
-        }
-        return true;
     }
 
     @Override

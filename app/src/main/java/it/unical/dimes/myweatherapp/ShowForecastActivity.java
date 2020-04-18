@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import it.unical.dimes.myweatherapp.model.ForecastObject;
 
@@ -47,11 +48,37 @@ public class ShowForecastActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        ViewPagerAdapter myAdapter = (ViewPagerAdapter) mViewPager.getAdapter();
+        SingleDayFragment singleDayFragment = (SingleDayFragment) myAdapter.getItem(0);
+        FiveDayFragment fiveDayFragment = (FiveDayFragment) myAdapter.getItem(1);
+
+        if (item.getItemId() == R.id.action_show_in_map) {
+            String uri = String.format(Locale.ITALIAN,
+                    "geo:%f,%f",
+                    singleDayFragment.getmSingleDayForecast().getLatitude(),
+                    singleDayFragment.getmSingleDayForecast().getLongitude());
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            startActivity(intent);
+        }
+        else {
+            if (singleDayFragment != null && singleDayFragment.isVisible()) {
+                Toast.makeText(this, "Cambiero alcuni parametri della view, switchando su C o F", Toast.LENGTH_LONG).show();
+            } else if (fiveDayFragment != null && fiveDayFragment.isVisible()) {
+                Toast.makeText(this, "Cambiero alcuni altri parametri della view, switchando su C o F", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_show_forecast);
         //Toast.makeText(this, getIntent().getStringExtra(Intent.EXTRA_RETURN_RESULT), Toast.LENGTH_LONG).show();
 

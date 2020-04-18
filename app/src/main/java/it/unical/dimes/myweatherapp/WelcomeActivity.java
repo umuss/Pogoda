@@ -171,6 +171,9 @@ public class WelcomeActivity extends AppCompatActivity {
         );
     }
 
+    // TODO: revisiona il modo in cui funziona la richiesta della location.
+    // Quando è disabilitata ti chiede di attivarla, la attivi, e poi quando ritorni alla WelcomeActivity
+    // e riclicchi sul pulsante GPS non ti fa partire la ShowForecastActivity.
     private boolean isLocationEnabled() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         assert locationManager != null;
