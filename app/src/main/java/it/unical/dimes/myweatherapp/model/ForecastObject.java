@@ -31,9 +31,14 @@ public class ForecastObject {
     private String forecastIconID;
     private Double latitude;
     private Double longitude;
+    private String unicodeEmoji;
 
     public String getForecastIconID() {
         return forecastIconID;
+    }
+
+    public String getUnicodeEmoji() {
+        return unicodeEmoji;
     }
 
     public String getMainForecast() {
@@ -177,6 +182,35 @@ public class ForecastObject {
 
             Double windDegrees = jsonForecast.getJSONObject("wind").getDouble("deg");
             windValues.put(WIND_DEGREES, windDegrees);
+
+
+            switch (forecastIconID) {
+                case "01d":
+                    unicodeEmoji = "☀";
+                    break;
+                case "02d":
+                    unicodeEmoji = "⛅";
+                    break;
+                case "03d":
+                case "04d":
+                    unicodeEmoji = "☁";
+                    break;
+                case "09d":
+                    unicodeEmoji = "\uD83C\uDF27";
+                    break;
+                case "10d":
+                    unicodeEmoji = "\uD83C\uDF26";
+                    break;
+                case "11d":
+                    unicodeEmoji = "⛈";
+                    break;
+                case "13d":
+                    unicodeEmoji = "\uD83C\uDF28";
+                    break;
+                case "50d":
+                    unicodeEmoji = "\uD83C\uDF2B";
+                    break;
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

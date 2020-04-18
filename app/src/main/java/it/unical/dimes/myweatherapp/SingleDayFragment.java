@@ -57,6 +57,8 @@ public class SingleDayFragment extends Fragment {
         return mSingleDayForecast;
     }
 
+
+
     public SingleDayFragment(ForecastObject singleDayForecast) {
         mSingleDayForecast = singleDayForecast;
     }
@@ -97,14 +99,13 @@ public class SingleDayFragment extends Fragment {
             public void onClick(View v) {
 
 
-                // 01d(1), 02d(3), 03d(5), 04d(5), 09d(7), 10d(6), 11d(9), 13d(10)
 
                 // TODO: anche qui va parametrizzata la stringa perchè non sai se hai fahrenheit o celsius
                 StringBuilder textToShare = new StringBuilder();
                 textToShare.append("Oggi a ")
                         .append(mSingleDayForecast.getLocationName())
-                        .append(" porta ").append("\\xF0\\x9F\\x98\\x82 - ")
-                        .append(" ci sono ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN))
+                        .append(" porta ").append(mSingleDayForecast.getUnicodeEmoji())
+                        .append("\nCi sono ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN))
                         .append("°C di minima e ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MAX))
                         .append("°C di massima. ")
                         .append("\nVento di ").append(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_SPEED))
