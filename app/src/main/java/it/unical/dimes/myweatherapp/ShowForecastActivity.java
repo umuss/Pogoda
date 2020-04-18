@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -66,7 +67,18 @@ public class ShowForecastActivity extends AppCompatActivity {
         }
         else {
             if (singleDayFragment != null && singleDayFragment.isVisible()) {
-                Toast.makeText(this, "Cambiero alcuni parametri della view, switchando su C o F", Toast.LENGTH_LONG).show();
+                if (item.getItemId() == R.id.action_switch_to_imperial) {
+                    singleDayFragment.getmMaxTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsFahrenheit())) + "°");
+                    singleDayFragment.getmMinTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsFahrenheit())) + "°");
+                    singleDayFragment.getmWindUnitsTextView().setText("mph");
+                    singleDayFragment.getmWindValueTextView().setText(new DecimalFormat("#.#").format(singleDayFragment.getmSingleDayForecast().getWindSpeedAsMph()));
+                }
+                else if (item.getItemId() == R.id.action_switch_to_metric) {
+                    singleDayFragment.getmMaxTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsCelsius())) + "°");
+                    singleDayFragment.getmMinTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsCelsius())) + "°");
+                    singleDayFragment.getmWindUnitsTextView().setText("km/h");
+                    singleDayFragment.getmWindValueTextView().setText(singleDayFragment.getmSingleDayForecast().getWindSpeedAsKmh().toString());
+                }
             } else if (fiveDayFragment != null && fiveDayFragment.isVisible()) {
                 Toast.makeText(this, "Cambiero alcuni altri parametri della view, switchando su C o F", Toast.LENGTH_LONG).show();
             }
@@ -109,8 +121,8 @@ public class ShowForecastActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager, ForecastObject singleDayForecast, ForecastObject fiveDayForecast) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SingleDayFragment(singleDayForecast), "SINGLE");
-        adapter.addFragment(new FiveDayFragment(fiveDayForecast), "FIVE");
+        adapter.addFragment(new SingleDayFragment(singleDayForecast), "Oggi");
+        adapter.addFragment(new FiveDayFragment(fiveDayForecast), "5 giorni");
         viewPager.setAdapter(adapter);
     }
 

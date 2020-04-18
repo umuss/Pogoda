@@ -24,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,19 +59,31 @@ public class SingleDayFragment extends Fragment {
     }
 
 
-
     public SingleDayFragment(ForecastObject singleDayForecast) {
         mSingleDayForecast = singleDayForecast;
     }
 
-    public void shareForecast(View view) {
-        // TODO da fare utilizzando il FAB
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    public TextView getmMaxTempTextView() {
+        return mMaxTempTextView;
+    }
+
+    public TextView getmMinTempTextView() {
+        return mMinTempTextView;
+    }
+
+    public TextView getmWindValueTextView() {
+        return mWindValueTextView;
+    }
+
+    public TextView getmWindUnitsTextView() {
+        return mWindUnitsTextView;
     }
 
     @Override
@@ -99,17 +112,16 @@ public class SingleDayFragment extends Fragment {
             public void onClick(View v) {
 
 
-
-                // TODO: anche qui va parametrizzata la stringa perchè non sai se hai fahrenheit o celsius
                 StringBuilder textToShare = new StringBuilder();
                 textToShare.append("Oggi a ")
                         .append(mSingleDayForecast.getLocationName())
                         .append(" porta ").append(mSingleDayForecast.getUnicodeEmoji())
-                        .append("\nCi sono ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN))
-                        .append("°C di minima e ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MAX))
-                        .append("°C di massima. ")
-                        .append("\nVento di ").append(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_SPEED))
-                        .append(" km/h.");
+                        .append("\nMinima: ").append(mSingleDayForecast.getTempValues().get(ForecastObject.TEMP_MIN))
+                        .append("°C (").append(new DecimalFormat("#.#").format(mSingleDayForecast.getMinTempAsFahrenheit())).append(" °F)\nMassima: ")
+                        .append(mSingleDayForecast.getMaxTempAsCelsius())
+                        .append("°C (").append(new DecimalFormat("#.#").format(mSingleDayForecast.getMaxTempAsFahrenheit())).append(" °F)")
+                        .append("\nIl 🌬 soffia a: ").append(mSingleDayForecast.getWindValues().get(ForecastObject.WIND_SPEED))
+                        .append(" km/h (").append(new DecimalFormat("#.#").format(mSingleDayForecast.getWindSpeedAsMph())).append(" mph).");
 
 
                 ShareCompat.IntentBuilder.

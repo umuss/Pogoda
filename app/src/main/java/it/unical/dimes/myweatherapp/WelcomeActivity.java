@@ -96,7 +96,6 @@ public class WelcomeActivity extends AppCompatActivity {
         Uri builtUri = Uri.parse(OWM_SINGLE_URL).buildUpon()
                 .appendQueryParameter("lat", String.valueOf(latitude))
                 .appendQueryParameter("lon", String.valueOf(longitude))
-                // TODO: qui poi parametrizza perchè potrei voler cambiare le impostazioni e vedere in fahrenheit
                 .appendQueryParameter("units", "metric")
                 .appendQueryParameter("lang", "it")
                 .appendQueryParameter("appid", getString(R.string.owm_api_key))

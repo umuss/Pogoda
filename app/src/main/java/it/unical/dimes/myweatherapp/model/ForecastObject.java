@@ -37,6 +37,32 @@ public class ForecastObject {
         return forecastIconID;
     }
 
+    public Double getWindSpeedAsMph() {
+        return windValues.get(WIND_SPEED) / 1.609;
+    }
+
+    public Double getMaxTempAsFahrenheit() {
+        return ((tempValues.get(TEMP_MAX) * (9F / 5F)) + 32);
+    }
+
+    public Double getMinTempAsFahrenheit() {
+        return ((tempValues.get(TEMP_MIN) * (9F / 5F)) + 32);
+    }
+
+    public Double getMaxTempAsCelsius() {
+        return tempValues.get(TEMP_MAX);
+    }
+
+    public Double getMinTempAsCelsius() {
+        return tempValues.get(TEMP_MIN);
+    }
+
+    public Double getWindSpeedAsKmh() {
+        return windValues.get(WIND_SPEED);
+    }
+
+
+
     public String getUnicodeEmoji() {
         return unicodeEmoji;
     }
