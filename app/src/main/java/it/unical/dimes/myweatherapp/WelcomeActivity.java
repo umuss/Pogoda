@@ -33,7 +33,6 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.appbar.AppBarLayout;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,7 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     };
 
-    public class FetchWeatherTask extends AsyncTask<Double, Void, String> {
+    public class FetchWeatherTask extends AsyncTask<Double, Void, String[]> {
 
         @Override
         protected void onPreExecute() {
@@ -69,7 +68,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(Double... params) {
+        protected String[] doInBackground(Double... params) {
             if (params.length == 0) {
                 return null;
             }
@@ -77,7 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String[] result) {
             if (result != null) {
                 Intent intent = new Intent(WelcomeActivity.this, ShowForecastActivity.class);
                 intent.putExtra(Intent.EXTRA_RETURN_RESULT, result);
@@ -87,12 +86,14 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-    private String fetchForecast(Double latitude, Double longitude) {
+    private String[] fetchForecast(Double latitude, Double longitude) {
+
+        String[] results = new String[2];
 
         final String OWM_SINGLE_URL =
                 "https://api.openweathermap.org/data/2.5/weather";
         final String OWM_MULTIPLE_URL =
-                "https://api.openweathermap.org/data/2.5/forecast";
+                "https://api.openweathermap.org/data/2.5/onecall";
         Uri builtUri = Uri.parse(OWM_SINGLE_URL).buildUpon()
                 .appendQueryParameter("lat", String.valueOf(latitude))
                 .appendQueryParameter("lon", String.valueOf(longitude))
@@ -100,6 +101,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 .appendQueryParameter("lang", "it")
                 .appendQueryParameter("appid", getString(R.string.owm_api_key))
                 .build();
+        Uri builtFiveDayUri = Uri.parse(OWM_MULTIPLE_URL).buildUpon()
+                .appendQueryParameter("lat", String.valueOf(latitude))
+                .appendQueryParameter("lon", String.valueOf(longitude))
+                .appendQueryParameter("units", "metric")
+                .appendQueryParameter("lang", "it")
+                .appendQueryParameter("appid", getString(R.string.owm_api_key))
+                .build();
+
+
         try {
             URL url = new URL(builtUri.toString());
             Log.v(TAG, builtUri.toString());
@@ -114,7 +124,21 @@ public class WelcomeActivity extends AppCompatActivity {
             if (hasInput)
                 result = scanner.next();
 
-            return result;
+            results[0] = result;
+
+            url = new URL(builtFiveDayUri.toString());
+            urlConnection = (HttpURLConnection) url.openConnection();
+            result = "";
+            in = urlConnection.getInputStream();
+            scanner = new Scanner(in);
+            scanner.useDelimiter("\\A");
+            hasInput = scanner.hasNext();
+            if (hasInput)
+                result = scanner.next();
+            results[1] = result;
+
+            return results;
+
         } catch (IOException e) {
             e.printStackTrace();
             return null;

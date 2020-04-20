@@ -13,8 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
 
-        <activity android:name=".ShowForecastActivity" />
-        <activity android:name=".WelcomeActivity">
+        <activity
+            android:name=".ShowForecastActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

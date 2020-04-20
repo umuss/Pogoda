@@ -20,11 +20,12 @@ public class ForecastObject {
     private String mainForecast;
     private String description;
     private HashMap<String, Double> tempValues;
-    private Double pressure;
+    private Integer pressure;
     private Double humidity;
     private HashMap<String, Double> windValues;
     private Double cloudsPercentage;
     private Instant takenOn;
+
     private Instant sunriseTime;
     private Instant sunsetTime;
     private String locationName;
@@ -91,13 +92,10 @@ public class ForecastObject {
         this.tempValues = tempValues;
     }
 
-    public Double getPressure() {
+    public Integer getPressure() {
         return pressure;
     }
 
-    public void setPressure(Double pressure) {
-        this.pressure = pressure;
-    }
 
     public Double getHumidity() {
         return humidity;
@@ -190,7 +188,7 @@ public class ForecastObject {
             tempValues.put(TEMP_PERCEIVED, perceivedTemp);
             tempValues.put(TEMP_MIN, minTemp);
             tempValues.put(TEMP_MAX, maxTemp);
-            pressure = tempsObject.getDouble("pressure");
+            pressure = Math.toIntExact(Math.round(tempsObject.getDouble("pressure")));
             humidity = tempsObject.getDouble("humidity");
 
             Double windSpeed = jsonForecast.getJSONObject("wind").getDouble("speed");
