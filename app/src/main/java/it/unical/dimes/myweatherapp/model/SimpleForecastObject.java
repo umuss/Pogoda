@@ -20,4 +20,43 @@ public class SimpleForecastObject {
     }
 
 
+    public Instant getDateOfForecast() {
+        return dateOfForecast;
+    }
+
+    public void setDateOfForecast(Instant dateOfForecast) {
+        this.dateOfForecast = dateOfForecast;
+    }
+
+    public Integer getMinTemp() {
+        return minTemp;
+    }
+
+    public void setMinTemp(Integer minTemp) {
+        this.minTemp = minTemp;
+    }
+
+    public Integer getMaxTemp() {
+        return maxTemp;
+    }
+
+    public void setMaxTemp(Integer maxTemp) {
+        this.maxTemp = maxTemp;
+    }
+
+    public Integer getForecastIconID() {
+        return forecastIconID;
+    }
+
+    public void setForecastIconID(Integer forecastIconID) {
+        this.forecastIconID = forecastIconID;
+    }
+
+    public String getMainForecast() {
+        return mainForecast;
+    }
+
+    public void setMainForecast(String mainForecast) {
+        this.mainForecast = mainForecast;
+    }
 }
