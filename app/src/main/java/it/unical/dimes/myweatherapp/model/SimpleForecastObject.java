@@ -7,11 +7,11 @@ public class SimpleForecastObject {
     private Instant dateOfForecast;
     private Integer minTemp;
     private Integer maxTemp;
-    private Integer forecastIconID;
+    private String forecastIconID;
     private String mainForecast;
 
 
-    public SimpleForecastObject(Instant dateOfForecast, Integer minTemp, Integer maxTemp, Integer forecastIconID, String mainForecast) {
+    public SimpleForecastObject(Instant dateOfForecast, Integer minTemp, Integer maxTemp, String forecastIconID, String mainForecast) {
         this.dateOfForecast = dateOfForecast;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
@@ -44,12 +44,8 @@ public class SimpleForecastObject {
         this.maxTemp = maxTemp;
     }
 
-    public Integer getForecastIconID() {
+    public String getForecastIconID() {
         return forecastIconID;
-    }
-
-    public void setForecastIconID(Integer forecastIconID) {
-        this.forecastIconID = forecastIconID;
     }
 
     public String getMainForecast() {

@@ -37,15 +37,17 @@ public class FiveDayFragment extends Fragment {
 
         mfiveDayForecasts = new ArrayList<>();
 
-        for (int i = 0; i < fiveDayForecasts.length(); i++) {
+        for (int i = 1; i < fiveDayForecasts.length(); i++) {
             try {
                 JSONObject dailyForecast = fiveDayForecasts.getJSONObject(i);
                 Instant date = Instant.ofEpochSecond(dailyForecast.getLong("dt"));
                 Integer minTemp = Math.toIntExact(Math.round(dailyForecast.getJSONObject("temp").getDouble("min")));
                 Integer maxTemp = Math.toIntExact(Math.round(dailyForecast.getJSONObject("temp").getDouble("max")));
-                Integer forecastIconID = dailyForecast.getJSONArray("weather").getJSONObject(0).getInt("id");
+                String forecastIconID = dailyForecast.getJSONArray("weather").getJSONObject(0).getString("icon");
                 String mainForecast = dailyForecast.getJSONArray("weather").getJSONObject(0).getString("main");
                 mfiveDayForecasts.add(new SimpleForecastObject(date, minTemp, maxTemp, forecastIconID, mainForecast));
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -61,7 +63,7 @@ public class FiveDayFragment extends Fragment {
 
         Log.d(TAG, "Creata la view");
 
-        ForecastObjectAdapter fAdapter = new ForecastObjectAdapter(getContext(), R.layout.forecast_list_item, mfiveDayForecasts);
+        ForecastObjectAdapter fAdapter = new ForecastObjectAdapter(getContext(), R.layout.forecast_list_item, mfiveDayForecasts, getActivity().getPackageName());
         mListView = getView().findViewById(R.id.multiple_day_view);
         mListView.setAdapter(fAdapter);
 

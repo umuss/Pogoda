@@ -147,6 +147,8 @@ public class SingleDayFragment extends Fragment {
         mForecastImageView.setBackgroundResource(
                 getResources().getIdentifier(
                         "i_" + mSingleDayForecast.getForecastIconID(), "drawable", getActivity().getPackageName()));
+        String ee = String.valueOf(getResources().getIdentifier("i_" + mSingleDayForecast.getForecastIconID(), "drawable", getActivity().getPackageName()));
+        Log.d(TAG, mSingleDayForecast.getForecastIconID() + " è il messaggio");
 
 
         // N: 0-45
