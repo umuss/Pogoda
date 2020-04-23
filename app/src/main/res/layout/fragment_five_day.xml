@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".FiveDayFragment">
 
-    <!-- TODO: Metti una lista di giorni cliccabili -->
-    <ListView
+    <ExpandableListView
         android:id="@+id/multiple_day_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"></ExpandableListView>
 </FrameLayout>

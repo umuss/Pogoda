@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
@@ -17,18 +16,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
-import it.unical.dimes.myweatherapp.model.ForecastObject;
 import it.unical.dimes.myweatherapp.model.SimpleForecastObject;
 
 
 public class FiveDayFragment extends Fragment {
 
     private ArrayList<SimpleForecastObject> mfiveDayForecasts;
-    private ListView mListView;
+    private ExpandableListView mExpandableListView;
+    private ExpandableListAdapter mExpandableListViewAdapter;
+    private List<SimpleForecastObject> mListDataGroup;
+    private HashMap<SimpleForecastObject, List<String>> mListDataChild;
 
     private static final String TAG = "FiveDayFragment";
 
@@ -48,7 +51,6 @@ public class FiveDayFragment extends Fragment {
                 mfiveDayForecasts.add(new SimpleForecastObject(date, minTemp, maxTemp, forecastIconID, mainForecast));
 
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -63,9 +65,26 @@ public class FiveDayFragment extends Fragment {
 
         Log.d(TAG, "Creata la view");
 
-        ForecastObjectAdapter fAdapter = new ForecastObjectAdapter(getContext(), R.layout.forecast_list_item, mfiveDayForecasts, getActivity().getPackageName());
-        mListView = getView().findViewById(R.id.multiple_day_view);
-        mListView.setAdapter(fAdapter);
+        mExpandableListView = tabbedView.findViewById(R.id.multiple_day_view);
+        mListDataChild = new HashMap<>();
+        mListDataGroup = new ArrayList<>();
+        mExpandableListViewAdapter = new ExpandableListAdapter(getContext(), mListDataGroup, mListDataChild);
+        mExpandableListView.setAdapter(mExpandableListViewAdapter);
+
+        for (SimpleForecastObject o : mfiveDayForecasts) {
+            mListDataGroup.add(o);
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add("100 bar");
+            temp.add("nuvole al 100%");
+            temp.add("ecc");
+            mListDataChild.put(o, temp);
+        }
+
+        mExpandableListViewAdapter.notifyDataSetChanged();
+
+//        ForecastObjectAdapter fAdapter = new ForecastObjectAdapter(getContext(), R.layout.forecast_list_group, mfiveDayForecasts, getActivity().getPackageName());
+//        mListView = getView().findViewById(R.id.multiple_day_view);
+//        mListView.setAdapter(fAdapter);
 
     }
 
