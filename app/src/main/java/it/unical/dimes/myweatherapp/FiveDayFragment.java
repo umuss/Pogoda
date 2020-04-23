@@ -48,7 +48,11 @@ public class FiveDayFragment extends Fragment {
                 Integer maxTemp = Math.toIntExact(Math.round(dailyForecast.getJSONObject("temp").getDouble("max")));
                 String forecastIconID = dailyForecast.getJSONArray("weather").getJSONObject(0).getString("icon");
                 String mainForecast = dailyForecast.getJSONArray("weather").getJSONObject(0).getString("main");
-                mfiveDayForecasts.add(new SimpleForecastObject(date, minTemp, maxTemp, forecastIconID, mainForecast));
+                String pressure = dailyForecast.getInt("pressure") + " hPa";
+                String humidity = dailyForecast.getInt("humidity") + "%";
+                String windSpeed = dailyForecast.getDouble("wind_speed") + " km/h";
+
+                mfiveDayForecasts.add(new SimpleForecastObject(date, minTemp, maxTemp, forecastIconID, mainForecast, pressure, humidity, windSpeed));
 
 
             } catch (JSONException e) {
@@ -74,11 +78,23 @@ public class FiveDayFragment extends Fragment {
         for (SimpleForecastObject o : mfiveDayForecasts) {
             mListDataGroup.add(o);
             ArrayList<String> temp = new ArrayList<>();
-            temp.add("100 bar");
-            temp.add("nuvole al 100%");
-            temp.add("ecc");
+            // 🌬(vento)
+            temp.add("\uD83C\uDF2C (vento): " + o.getWindSpeed());
+            temp.add("\uD83C\uDF21 (pressione): " + o.getPressure());
+            temp.add("\uD83D\uDCA7 (umidita): " + o.getHumidity());
+
             mListDataChild.put(o, temp);
         }
+//        for (SimpleForecastObject o : mfiveDayForecasts) {
+//            mListDataGroup.add(o);
+//            ArrayList<String> temp = new ArrayList<>();
+//            // 🌬(vento)
+//            temp.add("\uD83C\uDF2C (vento): " + o.getWindSpeed());
+//            temp.add("\uD83C\uDF21 (pressione): " + o.getPressure());
+//            temp.add("\uD83D\uDCA7 (umidita): " + o.getHumidity());
+//
+//            mListDataChild.put(o, temp);
+//        }
 
         mExpandableListViewAdapter.notifyDataSetChanged();
 

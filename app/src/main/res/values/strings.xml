@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">App Meteo</string>
+    <string name="alternative_app_name">погода</string>
     <string name="welcome_string">Benvenuto</string>
     <string name="use_location_string">Usa il GPS</string>
     <string name="api_key">AIzaSyBzHXpr7h6em6zk3OMswOAd2oADEVh4rc4</string>

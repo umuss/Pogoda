@@ -119,7 +119,7 @@ public class ShowForecastActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager, ForecastObject singleDayForecast, JSONArray fiveDayForecast) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SingleDayFragment(singleDayForecast), "Oggi");
-        adapter.addFragment(new FiveDayFragment(fiveDayForecast), "5 giorni");
+        adapter.addFragment(new FiveDayFragment(fiveDayForecast), "settimanale");
         viewPager.setAdapter(adapter);
     }
 

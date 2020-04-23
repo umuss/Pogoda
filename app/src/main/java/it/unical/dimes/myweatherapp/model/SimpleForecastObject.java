@@ -9,16 +9,33 @@ public class SimpleForecastObject {
     private Integer maxTemp;
     private String forecastIconID;
     private String mainForecast;
+    private String pressure;
+    private String humidity;
+    private String windSpeed;
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public String getPressure() {
+        return pressure;
+    }
+
+    public String getWindSpeed() {
+        return windSpeed;
+    }
 
 
-    public SimpleForecastObject(Instant dateOfForecast, Integer minTemp, Integer maxTemp, String forecastIconID, String mainForecast) {
+    public SimpleForecastObject(Instant dateOfForecast, Integer minTemp, Integer maxTemp, String forecastIconID, String mainForecast, String pressure, String humidity, String windSpeed) {
         this.dateOfForecast = dateOfForecast;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
         this.forecastIconID = forecastIconID;
         this.mainForecast = mainForecast;
+        this.pressure = pressure;
+        this.humidity = humidity;
+        this.windSpeed = windSpeed;
     }
-
 
     public Instant getDateOfForecast() {
         return dateOfForecast;
