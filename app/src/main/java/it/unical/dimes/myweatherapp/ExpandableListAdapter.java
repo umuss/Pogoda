@@ -1,6 +1,7 @@
 package it.unical.dimes.myweatherapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,16 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import it.unical.dimes.myweatherapp.model.SimpleForecastObject;
 
@@ -93,7 +102,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         tvHighTemp.setText(headerObject.getMaxTemp() + " °C");
         tvLowTemp.setText(headerObject.getMinTemp() + " °C");
-        tvDate.setText(headerObject.getDateOfForecast().toString());
+
+        Matcher dayMatcher = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})T.+Z").matcher(headerObject.getDateOfForecast().toString());
+        dayMatcher.find();
+        LocalDate ld = LocalDate.parse(dayMatcher.group(1), DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ITALY));
+        String output = ld.format(DateTimeFormatter.ofPattern("EEEE, dd MMMM", Locale.ITALY));
+        tvDate.setText(output);
+
         tvMainForecast.setText(headerObject.getMainForecast());
         imageViewIcon.setBackgroundResource(
                 context.getResources().getIdentifier(
