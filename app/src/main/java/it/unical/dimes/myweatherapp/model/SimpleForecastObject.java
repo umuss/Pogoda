@@ -5,8 +5,13 @@ import java.time.Instant;
 public class SimpleForecastObject {
 
     private Instant dateOfForecast;
-    private Integer minTemp;
-    private Integer maxTemp;
+    private String minTemp;
+    private String maxTemp;
+    private Integer minTempImperial;
+    private Integer maxTempImperial;
+    private Integer minTempMetric;
+    private Integer maxTempMetric;
+
     private String forecastIconID;
     private String mainForecast;
     private String pressure;
@@ -28,8 +33,12 @@ public class SimpleForecastObject {
 
     public SimpleForecastObject(Instant dateOfForecast, Integer minTemp, Integer maxTemp, String forecastIconID, String mainForecast, String pressure, String humidity, String windSpeed) {
         this.dateOfForecast = dateOfForecast;
-        this.minTemp = minTemp;
-        this.maxTemp = maxTemp;
+        this.minTemp = minTemp + " °C";
+        this.maxTemp = maxTemp + " °C";
+        minTempImperial = Math.round((minTemp * (9F / 5F)) + 32);
+        maxTempImperial = Math.round((maxTemp * (9F / 5F)) + 32);
+        maxTempMetric = maxTemp;
+        minTempMetric = minTemp;
         this.forecastIconID = forecastIconID;
         this.mainForecast = mainForecast;
         this.pressure = pressure;
@@ -45,20 +54,12 @@ public class SimpleForecastObject {
         this.dateOfForecast = dateOfForecast;
     }
 
-    public Integer getMinTemp() {
-        return minTemp;
-    }
-
-    public void setMinTemp(Integer minTemp) {
-        this.minTemp = minTemp;
-    }
-
-    public Integer getMaxTemp() {
+    public String getMaxTemp() {
         return maxTemp;
     }
 
-    public void setMaxTemp(Integer maxTemp) {
-        this.maxTemp = maxTemp;
+    public String getMinTemp() {
+        return minTemp;
     }
 
     public String getForecastIconID() {
@@ -72,4 +73,16 @@ public class SimpleForecastObject {
     public void setMainForecast(String mainForecast) {
         this.mainForecast = mainForecast;
     }
+
+    public void convertToImperial() {
+        minTemp = minTempImperial + " °F";
+        maxTemp = maxTempImperial + " °F";
+    }
+
+    public void convertToMetric() {
+        minTemp = minTempMetric + " °C";
+        maxTemp = maxTempMetric + " °C";
+
+    }
+
 }

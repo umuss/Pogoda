@@ -63,21 +63,28 @@ public class ShowForecastActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             startActivity(intent);
         } else {
-            if (singleDayFragment != null && singleDayFragment.isVisible()) {
+
                 if (item.getItemId() == R.id.action_switch_to_imperial) {
                     singleDayFragment.getmMaxTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsFahrenheit())) + "°");
                     singleDayFragment.getmMinTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsFahrenheit())) + "°");
                     singleDayFragment.getmWindUnitsTextView().setText("mph");
                     singleDayFragment.getmWindValueTextView().setText(new DecimalFormat("#.#").format(singleDayFragment.getmSingleDayForecast().getWindSpeedAsMph()));
+
+                    // qui modifico anche roba per fiveDayFragment
+                    fiveDayFragment.getmExpandableListViewAdapter().convertToImperial();
+                    fiveDayFragment.getmExpandableListViewAdapter().notifyDataSetChanged();
+
                 } else if (item.getItemId() == R.id.action_switch_to_metric) {
                     singleDayFragment.getmMaxTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsCelsius())) + "°");
                     singleDayFragment.getmMinTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsCelsius())) + "°");
                     singleDayFragment.getmWindUnitsTextView().setText("km/h");
                     singleDayFragment.getmWindValueTextView().setText(singleDayFragment.getmSingleDayForecast().getWindSpeedAsKmh().toString());
+
+                    // qui modifico anche roba per fiveDayFragment
+                    fiveDayFragment.getmExpandableListViewAdapter().convertToMetric();
+                    fiveDayFragment.getmExpandableListViewAdapter().notifyDataSetChanged();
                 }
-            } else if (fiveDayFragment != null && fiveDayFragment.isVisible()) {
-                Toast.makeText(this, "Cambiero alcuni altri parametri della view, switchando su C o F", Toast.LENGTH_LONG).show();
-            }
+
         }
 
 

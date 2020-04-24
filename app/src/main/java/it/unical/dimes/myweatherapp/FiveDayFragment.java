@@ -36,6 +36,10 @@ public class FiveDayFragment extends Fragment {
     private static final String TAG = "FiveDayFragment";
 
 
+    public ExpandableListAdapter getmExpandableListViewAdapter() {
+        return mExpandableListViewAdapter;
+    }
+
     public FiveDayFragment(JSONArray fiveDayForecasts) {
 
         mfiveDayForecasts = new ArrayList<>();
@@ -78,7 +82,8 @@ public class FiveDayFragment extends Fragment {
         for (SimpleForecastObject o : mfiveDayForecasts) {
             mListDataGroup.add(o);
             ArrayList<String> temp = new ArrayList<>();
-            // 🌬(vento)
+
+            // TODO: aggiungi (se ti va) la direzione del vento, tipo SE/SW etc
             temp.add("\uD83C\uDF2C (vento): " + o.getWindSpeed());
             temp.add("\uD83C\uDF21 (pressione): " + o.getPressure());
             temp.add("\uD83D\uDCA7 (umidita): " + o.getHumidity());

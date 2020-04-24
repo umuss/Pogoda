@@ -35,6 +35,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.listDataChild = listChildData;
     }
 
+    public void convertToImperial() {
+        for (SimpleForecastObject o : listDataGroup) {
+            o.convertToImperial();
+        }
+    }
+
+    public void convertToMetric() {
+        for (SimpleForecastObject o : listDataGroup) {
+            o.convertToMetric();
+        }
+    }
+
+
+    public List<SimpleForecastObject> getListDataGroup() {
+        return listDataGroup;
+    }
+
+    public HashMap<SimpleForecastObject, List<String>> getListDataChild() {
+        return listDataChild;
+    }
+
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return listDataChild.get(listDataGroup.get(groupPosition)).get(childPosition);
@@ -96,8 +117,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView tvMainForecast = convertView.findViewById(R.id.weather_description);
         ImageView imageViewIcon = convertView.findViewById(R.id.weather_icon);
 
-        tvHighTemp.setText(headerObject.getMaxTemp() + " °C");
-        tvLowTemp.setText(headerObject.getMinTemp() + " °C");
+        tvHighTemp.setText(headerObject.getMaxTemp());
+        tvLowTemp.setText(headerObject.getMinTemp());
 
         Matcher dayMatcher = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})T.+Z").matcher(headerObject.getDateOfForecast().toString());
         dayMatcher.find();
