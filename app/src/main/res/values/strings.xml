@@ -30,4 +30,5 @@
     <string name="usa_sistema_metrico">Usa sistema metrico</string>
     <string name="usa_sistema_imperiale">Usa sistema imperiale</string>
     <string name="mostra_luogo_su_mappe">Mostra luogo su mappe</string>
+    <string name="city_searchbox_hint">Inserisci una città..</string>
 </resources>

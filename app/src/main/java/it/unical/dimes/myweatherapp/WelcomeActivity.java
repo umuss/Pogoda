@@ -29,17 +29,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -60,29 +56,17 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     };
 
-    public class FetchWeatherTask extends AsyncTask<Double, Void, String[]> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String[] doInBackground(Double... params) {
-            if (params.length == 0) {
-                return null;
-            }
-            return fetchForecast(params[0], params[1]);
-        }
-
-        @Override
-        protected void onPostExecute(String[] result) {
-            if (result != null) {
-                Intent intent = new Intent(WelcomeActivity.this, ShowForecastActivity.class);
-                intent.putExtra(Intent.EXTRA_RETURN_RESULT, result);
-                startActivity(intent);
-            }
-        }
+    public void searchForCity(View view) {
+//        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
+//        // Start the autocomplete intent.
+//        Intent intent = new Autocomplete.IntentBuilder(
+//                AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IT").setTypeFilter(TypeFilter.CITIES)
+//                .build(this);
+//
+//        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+        Intent intent = new Intent(WelcomeActivity.this, SearchCityActivity.class);
+//        intent.putExtra(Intent.EXTRA_RETURN_RESULT, "la città");
+        startActivity(intent);
     }
 
 
@@ -264,14 +248,29 @@ public class WelcomeActivity extends AppCompatActivity {
         getLastLocation();
     }
 
-    public void searchForCity(View view) {
-        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
-        // Start the autocomplete intent.
-        Intent intent = new Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IT").setTypeFilter(TypeFilter.CITIES)
-                .build(this);
+    public class FetchWeatherTask extends AsyncTask<Double, Void, String[]> {
 
-        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(Double... params) {
+            if (params.length == 0) {
+                return null;
+            }
+            return fetchForecast(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null) {
+                Intent intent = new Intent(getApplicationContext(), ShowForecastActivity.class);
+                intent.putExtra(Intent.EXTRA_RETURN_RESULT, result);
+                startActivity(intent);
+            }
+        }
     }
 
     @Override

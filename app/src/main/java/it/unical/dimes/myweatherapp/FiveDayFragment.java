@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,7 +81,6 @@ public class FiveDayFragment extends Fragment {
             mListDataGroup.add(o);
             ArrayList<String> temp = new ArrayList<>();
 
-            // TODO: aggiungi (se ti va) la direzione del vento, tipo SE/SW etc
             temp.add("\uD83C\uDF2C (vento): " + o.getWindSpeed());
             temp.add("\uD83C\uDF21 (pressione): " + o.getPressure());
             temp.add("\uD83D\uDCA7 (umidita): " + o.getHumidity());
