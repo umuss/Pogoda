@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +27,6 @@ import java.util.List;
 import java.util.Locale;
 
 import it.unical.dimes.myweatherapp.model.ForecastObject;
-import it.unical.dimes.myweatherapp.model.SimpleForecastObject;
 
 public class ShowForecastActivity extends AppCompatActivity {
 
@@ -50,6 +48,11 @@ public class ShowForecastActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
         ViewPagerAdapter myAdapter = (ViewPagerAdapter) mViewPager.getAdapter();
         SingleDayFragment singleDayFragment = (SingleDayFragment) myAdapter.getItem(0);
         FiveDayFragment fiveDayFragment = (FiveDayFragment) myAdapter.getItem(1);
@@ -65,8 +68,8 @@ public class ShowForecastActivity extends AppCompatActivity {
         } else {
 
                 if (item.getItemId() == R.id.action_switch_to_imperial) {
-                    singleDayFragment.getmMaxTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsFahrenheit())) + "°");
-                    singleDayFragment.getmMinTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsFahrenheit())) + "°");
+                    singleDayFragment.getmMaxTempTextView().setText(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsFahrenheit()) + "°");
+                    singleDayFragment.getmMinTempTextView().setText(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsFahrenheit()) + "°");
                     singleDayFragment.getmWindUnitsTextView().setText("mph");
                     singleDayFragment.getmWindValueTextView().setText(new DecimalFormat("#.#").format(singleDayFragment.getmSingleDayForecast().getWindSpeedAsMph()));
 
@@ -75,8 +78,8 @@ public class ShowForecastActivity extends AppCompatActivity {
                     fiveDayFragment.getmExpandableListViewAdapter().notifyDataSetChanged();
 
                 } else if (item.getItemId() == R.id.action_switch_to_metric) {
-                    singleDayFragment.getmMaxTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsCelsius())) + "°");
-                    singleDayFragment.getmMinTempTextView().setText(String.valueOf(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsCelsius())) + "°");
+                    singleDayFragment.getmMaxTempTextView().setText(Math.round(singleDayFragment.getmSingleDayForecast().getMaxTempAsCelsius()) + "°");
+                    singleDayFragment.getmMinTempTextView().setText(Math.round(singleDayFragment.getmSingleDayForecast().getMinTempAsCelsius()) + "°");
                     singleDayFragment.getmWindUnitsTextView().setText("km/h");
                     singleDayFragment.getmWindValueTextView().setText(singleDayFragment.getmSingleDayForecast().getWindSpeedAsKmh().toString());
 
@@ -98,7 +101,7 @@ public class ShowForecastActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_forecast);
         //Toast.makeText(this, getIntent().getStringExtra(Intent.EXTRA_RETURN_RESULT), Toast.LENGTH_LONG).show();
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -109,11 +112,11 @@ public class ShowForecastActivity extends AppCompatActivity {
 
             ForecastObject mainForecastObject = new ForecastObject(new JSONObject(forecasts[0]));
             JSONArray fiveDayArray = new JSONObject(forecasts[1]).getJSONArray("daily");
-            mViewPager = (ViewPager) findViewById(R.id.viewpager);
+            mViewPager = findViewById(R.id.viewpager);
             setupViewPager(mViewPager, mainForecastObject, new JSONObject(forecasts[1]).getJSONArray("daily"));
             //
 
-            mTabLayout = (TabLayout) findViewById(R.id.tabs);
+            mTabLayout = findViewById(R.id.tabs);
             mTabLayout.setupWithViewPager(mViewPager);
 
         } catch (JSONException e) {
